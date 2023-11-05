@@ -91,5 +91,3 @@ df = pd.DataFrame(data)
 
 print("\nDataFrame creado a partir de la información del Pokémon:")
 print(df)
-
-import psycopg2
