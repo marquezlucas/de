@@ -19,6 +19,5 @@ CREATE TABLE IF NOT EXISTS pokemon (
     defensa INT,
     ataque_especial INT,
     defensa_especial INT,
-    velocidad INT,
-    habilidades VARCHAR(255)
+    velocidad INT
 );

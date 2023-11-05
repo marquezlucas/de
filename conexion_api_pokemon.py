@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import psycopg2
 
 # Función para obtener información sobre un Pokémon específico
 def obtener_informacion_pokemon(numero):
@@ -49,19 +50,6 @@ def obtener_stats_pokemon(numero):
         print(f"Error al obtener información del Pokémon {numero}. Código de estado: {response.status_code}")
         return None
 
-# Función para obtener información sobre las habilidades de un Pokémon
-def obtener_habilidades_pokemon(numero):
-    base_url = "https://pokeapi.co/api/v2/"
-    url = f"{base_url}pokemon/{numero}/"
-    response = requests.get(url)
-    
-    if response.status_code == 200:
-        data = response.json()
-        habilidades = [habilidad["ability"]["name"] for habilidad in data["abilities"]]
-        return habilidades
-    else:
-        print(f"Error al obtener información del Pokémon {numero}. Código de estado: {response.status_code}")
-        return None
 
 # Ejemplo de uso
 pokemon_numero = 1  # Bulbasaur
@@ -79,12 +67,7 @@ if info_pokemon:
         print(f"\nStats de {info_pokemon['name']}:")
         for stat, valor in stats.items():
             print(f"{stat.capitalize()}: {valor}")
-            
-    habilidades = obtener_habilidades_pokemon(pokemon_numero)
-    if habilidades:
-        print(f"\nHabilidades de {info_pokemon['name']}:")
-        for habilidad in habilidades:
-            print(habilidad)
+
 else:
     print("No se pudo obtener información del Pokémon.")
 
@@ -100,11 +83,13 @@ data = {
     "Defensa": [stats['defense']],
     "Ataque Especial": [stats['special-attack']],
     "Defensa Especial": [stats['special-defense']],
-    "Velocidad": [stats['speed']],
-    "Habilidades": [habilidades]
+    "Velocidad": [stats['speed']]
+    
 }
 
 df = pd.DataFrame(data)
 
 print("\nDataFrame creado a partir de la información del Pokémon:")
 print(df)
+
+import psycopg2
