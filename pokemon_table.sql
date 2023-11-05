@@ -10,8 +10,8 @@ SET marquezlucas_coderhouse;
 CREATE TABLE IF NOT EXISTS pokemon (
     id INT IDENTITY(1,1) PRIMARY KEY,
     nombre VARCHAR(255),
-    altura DECIMAL(5, 2),
-    peso DECIMAL(5, 2),
+    altura DECIMAL(10, 4),
+    peso DECIMAL(10, 4),
     tipos VARCHAR(255),
     experiencia_base INT,
     hp INT,
