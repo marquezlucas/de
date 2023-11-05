@@ -30,7 +30,7 @@ def obtener_datos_pokemon(pokemon_id):
 url = "data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws"
 data_base = "data-engineer-database"
 user = "marquezlucasa_coderhouse"
-with open("E:\de\crs.txt", 'r') as f:
+with open("E:\crs\crs.txt", 'r') as f:
     pwd = f.read()
 
 try:

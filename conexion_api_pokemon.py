@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 
 
+
 # Función para obtener información sobre un Pokémon específico
 def obtener_informacion_pokemon(numero):
     base_url = "https://pokeapi.co/api/v2/"
