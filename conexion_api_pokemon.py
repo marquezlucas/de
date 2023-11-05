@@ -1,6 +1,6 @@
 import requests
 import pandas as pd
-import psycopg2
+
 
 # Función para obtener información sobre un Pokémon específico
 def obtener_informacion_pokemon(numero):
