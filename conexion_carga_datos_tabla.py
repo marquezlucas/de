@@ -30,7 +30,7 @@ def obtener_datos_pokemon(pokemon_id):
 url = "data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws"
 data_base = "data-engineer-database"
 user = "marquezlucasa_coderhouse"
-with open("E:\crs\crs.txt", 'r') as f:
+with open("/path/to/crs.txt", 'r') as f:
     pwd = f.read()
 
 try:
@@ -51,29 +51,31 @@ except Exception as e:
 cur = conn.cursor()
 
 # Obtener y cargar los datos de los primeros 150 Pokémon en la base de datos de Redshift
-for i in range(1, 151):
-    pokemon_data = obtener_datos_pokemon(i)
-    if pokemon_data:
-        cur.execute("""
-            INSERT INTO pokemon (
-                nombre, altura, peso, tipos, experiencia_base, hp, ataque, defensa, ataque_especial, defensa_especial, velocidad
-            )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """, (
-            pokemon_data['nombre'],
-            pokemon_data['altura'],
-            pokemon_data['peso'],
-            pokemon_data['tipos'],
-            pokemon_data['experiencia_base'],
-            pokemon_data['hp'],
-            pokemon_data['ataque'],
-            pokemon_data['defensa'],
-            pokemon_data['ataque_especial'],
-            pokemon_data['defensa_especial'],
-            pokemon_data['velocidad']
-        ))
-    else:
-        print(f"No se pudieron obtener datos para el Pokémon {i}.")
+def cargar_datos_pokemon(cur):
+    # Obtener y cargar los datos de los primeros 150 Pokémon en la base de datos de Redshift
+    for i in range(1, 151):
+        pokemon_data = obtener_datos_pokemon(i)
+        if pokemon_data:
+            cur.execute("""
+                INSERT INTO pokemon (
+                    nombre, altura, peso, tipos, experiencia_base, hp, ataque, defensa, ataque_especial, defensa_especial, velocidad
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (
+                pokemon_data['nombre'],
+                pokemon_data['altura'],
+                pokemon_data['peso'],
+                pokemon_data['tipos'],
+                pokemon_data['experiencia_base'],
+                pokemon_data['hp'],
+                pokemon_data['ataque'],
+                pokemon_data['defensa'],
+                pokemon_data['ataque_especial'],
+                pokemon_data['defensa_especial'],
+                pokemon_data['velocidad']
+            ))
+        else:
+            print(f"No se pudieron obtener datos para el Pokémon {i}.")
 
 # Confirmar los cambios y cerrar la conexión
 conn.commit()

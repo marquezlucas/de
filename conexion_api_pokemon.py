@@ -51,44 +51,46 @@ def obtener_stats_pokemon(numero):
         print(f"Error al obtener información del Pokémon {numero}. Código de estado: {response.status_code}")
         return None
 
-
 # Ejemplo de uso
 pokemon_numero = 1  # Bulbasaur
-info_pokemon = obtener_informacion_pokemon(pokemon_numero)
+try:
+    info_pokemon = obtener_informacion_pokemon(pokemon_numero)
 
-if info_pokemon:
-    print(f"Nombre: {info_pokemon['name']}")
-    print(f"Altura: {info_pokemon['height']} decímetros")
-    print(f"Peso: {info_pokemon['weight']} hectogramos")
-    print(f"Tipos: {[tipo['type']['name'] for tipo in info_pokemon['types']]}")
-    print(f"Experiencia base: {info_pokemon['base_experience']}")
-    
-    stats = obtener_stats_pokemon(pokemon_numero)
-    if stats:
-        print(f"\nStats de {info_pokemon['name']}:")
-        for stat, valor in stats.items():
-            print(f"{stat.capitalize()}: {valor}")
+    if info_pokemon:
+        print(f"Nombre: {info_pokemon['name']}")
+        print(f"Altura: {info_pokemon['height']} decímetros")
+        print(f"Peso: {info_pokemon['weight']} hectogramos")
+        print(f"Tipos: {[tipo['type']['name'] for tipo in info_pokemon['types']]}")
+        print(f"Experiencia base: {info_pokemon['base_experience']}")
 
-else:
-    print("No se pudo obtener información del Pokémon.")
+        stats = obtener_stats_pokemon(pokemon_numero)
+        if stats:
+            print(f"\nStats de {info_pokemon['name']}:")
+            for stat, valor in stats.items():
+                print(f"{stat.capitalize()}: {valor}")
+
+except Exception as e:
+    print(f"No se pudo obtener información del Pokémon. Error: {e}")
 
 # Crear un DataFrame con la información del Pokémon
-data = {
-    "Nombre": [info_pokemon['name']],
-    "Altura": [info_pokemon['height']],
-    "Peso": [info_pokemon['weight']],
-    "Tipos": [[tipo['type']['name'] for tipo in info_pokemon['types']]],
-    "Experiencia Base": [info_pokemon['base_experience']],
-    "HP": [stats['hp']],
-    "Ataque": [stats['attack']],
-    "Defensa": [stats['defense']],
-    "Ataque Especial": [stats['special-attack']],
-    "Defensa Especial": [stats['special-defense']],
-    "Velocidad": [stats['speed']]
-    
-}
+if info_pokemon:
+    data = {
+        "Nombre": [info_pokemon['name']],
+        "Altura": [info_pokemon['height']],
+        "Peso": [info_pokemon['weight']],
+        "Tipos": [[tipo['type']['name'] for tipo in info_pokemon['types']]],
+        "Experiencia Base": [info_pokemon['base_experience']],
+        "HP": [stats['hp']],
+        "Ataque": [stats['attack']],
+        "Defensa": [stats['defense']],
+        "Ataque Especial": [stats['special-attack']],
+        "Defensa Especial": [stats['special-defense']],
+        "Velocidad": [stats['speed']]
+    }
 
-df = pd.DataFrame(data)
+    df = pd.DataFrame(data)
 
-print("\nDataFrame creado a partir de la información del Pokémon:")
-print(df)
+    print("\nDataFrame creado a partir de la información del Pokémon:")
+    print(df)
+else:
+    print("No se puede crear el DataFrame sin información del Pokémon.")
