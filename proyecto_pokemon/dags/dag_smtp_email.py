@@ -22,7 +22,7 @@ def enviar():
     try:
         x=smtplib.SMTP('smtp.gmail.com',587)
         x.starttls()
-        x.login('marquezlucasa@gmail.com','puykjldwfxrqwikn')
+        x.login('marquezlucasa@gmail.com','')
         subject='Ganaste un premio'
         body_text='Has ganado un premio fantastico!!!!'
         message='Subject: {}\n\n{}'.format(subject,body_text)
