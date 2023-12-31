@@ -28,6 +28,7 @@ dag_pokemon = DAG(
     default_args=default_args_pokemon,
     description='DAG para obtener y cargar datos de Pokémon en Redshift',
     schedule_interval=timedelta(days=1),
+    default_view='tree',  # o 'graph', 'duration', 'gantt', 'landing_times'
 )
 
 # Definir tarea para obtener datos de Pokémon
